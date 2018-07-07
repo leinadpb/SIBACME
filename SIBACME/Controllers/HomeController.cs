@@ -80,8 +80,27 @@ namespace SIBACME.Controllers
             return View();
         }
         [HttpPut]
-        public IActionResult Devuelta(Book book)
+        public IActionResult Devuelta(int BookId)
         {
+            Book book = null;
+            foreach (Book b in books)
+            {
+                if (b.BookId == BookId)
+                {
+                    book = _data.Books.Where(bk => bk.BookId == BookId).FirstOrDefault();
+                    if ()
+                    {
+                        if (!b.IsOnReserveCollection && book != null)
+                        {
+                            User user = _data.Users.Where(u => u.Id == UserId).FirstOrDefault();
+
+                            user.ReservedBooks.Add(book);
+
+                        }
+                    }
+                }
+            }
+
             return View();
         }
 
