@@ -126,7 +126,7 @@ namespace SIBACME.Controllers
         public IActionResult Devuelta(int BookId, int UserId)
         {
             Book book = null;
-            foreach (Book b in books)
+            foreach (Book b in _data.Books)
             {
                 if (b.BookId == BookId)
                 {
