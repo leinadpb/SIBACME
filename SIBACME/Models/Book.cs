@@ -13,5 +13,7 @@ namespace SIBACME.Models
         public Category Category { get; set; }
         public int Cantidad { get; set; }
         public int CantidadDisponible { get; set; }
+        public bool IsOnReserveCollection { get; set; }
+        public bool IsAvailable { get; set; }
     }
 }

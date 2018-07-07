@@ -1,0 +1,11 @@
+C:\Users\LEINAD\source\repos\SIBACME\SIBACME\bin\Debug\netcoreapp2.0\SIBACME.deps.json
+C:\Users\LEINAD\source\repos\SIBACME\SIBACME\bin\Debug\netcoreapp2.0\SIBACME.runtimeconfig.json
+C:\Users\LEINAD\source\repos\SIBACME\SIBACME\bin\Debug\netcoreapp2.0\SIBACME.runtimeconfig.dev.json
+C:\Users\LEINAD\source\repos\SIBACME\SIBACME\bin\Debug\netcoreapp2.0\SIBACME.dll
+C:\Users\LEINAD\source\repos\SIBACME\SIBACME\bin\Debug\netcoreapp2.0\SIBACME.pdb
+C:\Users\LEINAD\source\repos\SIBACME\SIBACME\obj\Debug\netcoreapp2.0\SIBACME.csprojAssemblyReference.cache
+C:\Users\LEINAD\source\repos\SIBACME\SIBACME\obj\Debug\netcoreapp2.0\SIBACME.csproj.CoreCompileInputs.cache
+C:\Users\LEINAD\source\repos\SIBACME\SIBACME\obj\Debug\netcoreapp2.0\SIBACME.AssemblyInfoInputs.cache
+C:\Users\LEINAD\source\repos\SIBACME\SIBACME\obj\Debug\netcoreapp2.0\SIBACME.AssemblyInfo.cs
+C:\Users\LEINAD\source\repos\SIBACME\SIBACME\obj\Debug\netcoreapp2.0\SIBACME.dll
+C:\Users\LEINAD\source\repos\SIBACME\SIBACME\obj\Debug\netcoreapp2.0\SIBACME.pdb

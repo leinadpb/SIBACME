@@ -10,7 +10,8 @@ namespace SIBACME.Controllers
 {
     public class HomeController : Controller
     {
-        DummyData _data;
+        private DummyData _data;
+
         public HomeController()
         {
             _data = new DummyData();
@@ -30,13 +31,28 @@ namespace SIBACME.Controllers
 
             return View();
         }
-        [HttpPut]
-        public IActionResult Reserva(Book book)
+        [HttpPost]
+        public IActionResult Reserva(int BookId, int UserId)
+        //Nota: Esta función está implementada con malas prácticas con motivo de enseñanza.
         {
-            Random rdn = new Random();
-            if(book == null) // Testing purporse
+            var books = _data.Books;
+            Book book = null;
+            foreach (Book b in books)
             {
-                book = _data.Books.ElementAt(rdn.Next(0, _data.Books.Count));
+                if (b.BookId == BookId)
+                {
+                    book = _data.Books.Where(bk => bk.BookId == BookId).FirstOrDefault();
+                    if (b.IsAvailable)
+                    {
+                        if (!b.IsOnReserveCollection && book != null)
+                        {
+                            User user = _data.Users.Where(u => u.Id == UserId).FirstOrDefault();
+
+                            user.ReservedBooks.Add(book);
+
+                        }
+                    }
+                }
             }
             return View();
         }
