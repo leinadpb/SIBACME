@@ -12,7 +12,9 @@ namespace SIBACME.Models
         public string Email { get; set; }
         public string Password { get; set; }
         public string CategoriaLibrosPreferidos { get; set; }
-        
         public ICollection<Book> ReservedBooks { get; set; }
+        public bool ListaNegra { get; set; } = false;
+        public int? Multa { get; set; } 
+ 
     }
 }
