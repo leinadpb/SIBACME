@@ -8,6 +8,7 @@ using SIBACME.Models;
 
 namespace SIBACME.Controllers
 {
+    //Nota: Esta función está implementada con malas prácticas con motivo de enseñanza.
     public class HomeController : Controller
     {
         private DummyData _data;
@@ -31,6 +32,7 @@ namespace SIBACME.Controllers
 
         public IActionResult CheckSign(User user)
         {
+            //Nota: Esta función está implementada con malas prácticas con motivo de enseñanza.
             var users = _data.Users;
             var loginSuccedd = false;
             foreach (var usuario in _data.Users)
