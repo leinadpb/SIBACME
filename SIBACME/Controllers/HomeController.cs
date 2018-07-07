@@ -89,9 +89,9 @@ namespace SIBACME.Controllers
                             book.ReservedDate = DateTime.Now;
                             book.LimitDate = DateTime.Now.AddDays(15);
 
-                            var datediff = (DateTime)DateTime.Now - book.LimitDate;
-                            
-                 
+                            var datediff = DateTime.Now.Subtract((DateTime)book.LimitDate);
+
+                            int days = datediff.Days;
 
                             user.ReservedBooks.Add(book);
                         }
