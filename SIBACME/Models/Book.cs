@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Threading.Tasks;
 
@@ -15,5 +16,13 @@ namespace SIBACME.Models
         public int CantidadDisponible { get; set; }
         public bool IsOnReserveCollection { get; set; }
         public bool IsAvailable { get; set; }
+
+        [DataType(DataType.Date)]
+        public DateTime? ReservedDate { get; set; }
+
+        [DataType(DataType.Date)]
+        public DateTime? LimitDate { get; set; }
+
+        
     }
 }

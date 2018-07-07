@@ -48,8 +48,12 @@ namespace SIBACME.Controllers
                         {
                             User user = _data.Users.Where(u => u.Id == UserId).FirstOrDefault();
 
-                            user.ReservedBooks.Add(book);
+                            book.IsAvailable = false;
 
+                            book.ReservedDate = DateTime.Now;
+                            book.LimitDate = DateTime.Now.AddDays(15);
+
+                            user.ReservedBooks.Add(book);
                         }
                     }
                 }
