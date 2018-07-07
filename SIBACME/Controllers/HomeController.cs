@@ -22,6 +22,42 @@ namespace SIBACME.Controllers
 
         }
 
+        public IActionResult Login()
+        {
+            var user = new User();
+            return View(user);
+
+        }
+
+        public IActionResult CheckSign(User user)
+        {
+            var users = _data.Users;
+            var loginSuccedd = false;
+            foreach (var usuario in _data.Users)
+            {
+                if (usuario.UserName == user.UserName && user.Password == usuario.Password)
+                {
+                    loginSuccedd = true;
+                }
+            }
+            if (loginSuccedd)
+            {
+                var categoriaPreferida = user.CategoriaLibrosPreferidos;
+                var model = new List<Book>();
+                foreach (var book in _data.Books)
+                {
+                    if (book.Category.Name.ToLower() == categoriaPreferida)
+                    {
+                        model.Add(book);
+                    }
+                }
+                //HACER QUE LOS LIBROS SE MUESTREN POR NOMBRE DE AUTHORES EN ORDEN ALFABETICO
+                return RedirectToAction("index", model);
+            }
+            TempData["ErrorMessage"] = "La clave o contrasena son incorrectos";
+            return RedirectToAction("Login");
+        }
+
         /**
          * RESERVA DE RECURSO BIBLIOGRAFICO  - Daniel
          * */
@@ -52,6 +88,10 @@ namespace SIBACME.Controllers
 
                             book.ReservedDate = DateTime.Now;
                             book.LimitDate = DateTime.Now.AddDays(15);
+
+                            var datediff = DateTime.Now.Subtract((DateTime)book.LimitDate);
+
+                            int days = datediff.Days;
 
                             user.ReservedBooks.Add(book);
                         }
