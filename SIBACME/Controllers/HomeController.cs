@@ -89,9 +89,6 @@ namespace SIBACME.Controllers
                             book.ReservedDate = DateTime.Now;
                             book.LimitDate = DateTime.Now.AddDays(15);
 
-                            var datediff = DateTime.Now.Subtract((DateTime)book.LimitDate);
-
-                            int days = datediff.Days;
 
                             user.ReservedBooks.Add(book);
                         }
@@ -135,14 +132,13 @@ namespace SIBACME.Controllers
                     User user = _data.Users.Where(u => u.Id == UserId).FirstOrDefault();
                     if (DateTime.Now > book.LimitDate)
                     {
-                       if(DateTime.Now.Days - book.LimitDate.Days >= 8)
+                         var datediff = DateTime.Now.Subtract((DateTime)book.LimitDate);
+                         int days = datediff.Days;
+                       if(days >= 8)
                         {
-                            //Llevar a la lista negra.
+                            user.ListaNegra = true;
                         }
-                       
-
-
-
+                       user.Multa = days * 20;
                     }
                     user.ReservedBooks.Remove(book);
                     b.IsAvailable = true;
