@@ -84,7 +84,7 @@ namespace SIBACME.Controllers
             return View();
         }
         [HttpPut]
-        public IActionResult Devuelta(int BookId)
+        public IActionResult Devuelta(int BookId, int UserId)
         {
             Book book = null;
             foreach (Book b in books)
@@ -92,16 +92,20 @@ namespace SIBACME.Controllers
                 if (b.BookId == BookId)
                 {
                     book = _data.Books.Where(bk => bk.BookId == BookId).FirstOrDefault();
-                    if ()
+                    User user = _data.Users.Where(u => u.Id == UserId).FirstOrDefault();
+                    if (DateTime.Now > book.LimitDate)
                     {
-                        if (!b.IsOnReserveCollection && book != null)
+                       if(DateTime.Now.Days - book.LimitDate.Days >= 8)
                         {
-                            User user = _data.Users.Where(u => u.Id == UserId).FirstOrDefault();
-
-                            user.ReservedBooks.Add(book);
-
+                            //Llevar a la lista negra.
                         }
+                       
+
+
+
                     }
+                    user.ReservedBooks.Remove(book);
+                    b.IsAvailable = true;
                 }
             }
 
