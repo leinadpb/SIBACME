@@ -12,6 +12,7 @@ namespace SIBACME.Models
         public string Email { get; set; }
         public string Password { get; set; }
         public string CategoriaLibrosPreferidos { get; set; }
+        
         public ICollection<Book> ReservedBooks { get; set; }
     }
 }
