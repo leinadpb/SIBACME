@@ -146,7 +146,10 @@ namespace SIBACME.Controllers
                     b.IsAvailable = true;
                 }
             }
-
+            if(book == null)
+            {
+                ViewBag.Error = "Ha ocurrido un error: El libro no existe en nuestro almacén.";
+            }
             return View();
         }
 
