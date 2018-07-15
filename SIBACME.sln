@@ -3,7 +3,9 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 15
 VisualStudioVersion = 15.0.27703.2026
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SIBACME", "SIBACME\SIBACME.csproj", "{093F0619-77BF-474F-9D65-834B7637FB5A}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SIBACME", "SIBACME\SIBACME.csproj", "{093F0619-77BF-474F-9D65-834B7637FB5A}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "XUnitTestSibacme", "XUnitTestSibacme\XUnitTestSibacme.csproj", "{71251E46-3CAE-4B23-BAB4-CE853AD4A8AD}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -15,6 +17,10 @@ Global
 		{093F0619-77BF-474F-9D65-834B7637FB5A}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{093F0619-77BF-474F-9D65-834B7637FB5A}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{093F0619-77BF-474F-9D65-834B7637FB5A}.Release|Any CPU.Build.0 = Release|Any CPU
+		{71251E46-3CAE-4B23-BAB4-CE853AD4A8AD}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{71251E46-3CAE-4B23-BAB4-CE853AD4A8AD}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{71251E46-3CAE-4B23-BAB4-CE853AD4A8AD}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{71251E46-3CAE-4B23-BAB4-CE853AD4A8AD}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

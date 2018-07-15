@@ -1,59 +1,32 @@
-﻿using System;
+using System;
+using Xunit;
+using SIBACME.Models;
+using SIBACME.Controllers;
 using System.Collections.Generic;
 using System.Linq;
-using System.Threading.Tasks;
-using SIBACME.Models;
 
-namespace SIBACME.Models
+namespace XUnitTestSibacme
 {
-    public static class DummyData
+    public class SAQUnitTestsReserva
     {
-        public static List<Category> Categories
+        public static List<Book> Books
         {
-            get { return Categories; }
-            set
-            {
-                Categories.Add(new Category{Id=1,Name = "Terror"});
-                Categories.Add(new Category { Id = 2, Name = "Comedia" });
-                Categories.Add(new Category { Id = 3, Name = "Novela" });
-                Categories.Add(new Category { Id = 4, Name = "Accion" });
-                Categories.Add(new Category { Id = 5, Name = "Romantico" });
-                Categories.Add(new Category { Id = 6, Name = "Historia" });
-                Categories.Add(new Category { Id = 6, Name = "Tecnologia" });
-                Categories.Add(new Category { Id = 7, Name = "Ciencias" });
-                Categories.Add(new Category { Id = 8, Name = "Cultura" });
-            }
-        }
-
-        public static List<User> Users
-        {
-            get { return Users; }
-            set
-            {
-                Users.Add(new User{Id = 1,Email = "dionisjosue@gmail.com",Password = "Admin",CategoriaLibrosPreferidos = "Terror"});
-                Users.Add(new User { Id = 1, Email = "dionisjosue@gmail.com", Password = "Admin", CategoriaLibrosPreferidos = "Terror" });
-                Users.Add(new User { Id = 2, Email = "dionisjosue@gmail.com", Password = "Admin", CategoriaLibrosPreferidos = "Terror" });
-                Users.Add(new User { Id = 3, Email = "dionisjosue@gmail.com", Password = "Admin", CategoriaLibrosPreferidos = "Terror" });
-                Users.Add(new User { Id = 4, Email = "dionisjosue@gmail.com", Password = "Admin", CategoriaLibrosPreferidos = "Terror" });
-
-            }
-        }
-        public static ICollection<Book> Books {
 
             get { return Books; }
 
-            set {
+            set
+            {
                 Books.Add(new Book { BookId = 1, BookTitle = "La casa viviente", BookAuthor = "Marco Polo", Cantidad = 7, CantidadDisponible = 3, IsAvailable = true, IsOnReserveCollection = false });
                 Books.Add(new Book { BookId = 2, BookTitle = "Los mejores cuentos", BookAuthor = "Anton Chejov", Cantidad = 8, CantidadDisponible = 4, IsAvailable = true, IsOnReserveCollection = false });
                 Books.Add(new Book { BookId = 1, BookTitle = "La casa viviente", BookAuthor = "Marco Polo", Cantidad = 7, CantidadDisponible = 4, IsAvailable = true, IsOnReserveCollection = false });
-                Books.Add(new Book { BookId = 3, BookTitle = "La casa viviente", BookAuthor = "Marco Polo", Cantidad = 6 , CantidadDisponible = 2, IsAvailable = true, IsOnReserveCollection = false });
+                Books.Add(new Book { BookId = 3, BookTitle = "La casa viviente", BookAuthor = "Marco Polo", Cantidad = 6, CantidadDisponible = 2, IsAvailable = true, IsOnReserveCollection = false });
                 Books.Add(new Book { BookId = 4, BookTitle = "La casa viviente", BookAuthor = "Marco Polo", Cantidad = 4, CantidadDisponible = 1, IsAvailable = true, IsOnReserveCollection = false });
                 Books.Add(new Book { BookId = 5, BookTitle = "La casa viviente", BookAuthor = "Marco Polo", Cantidad = 6, CantidadDisponible = 2, IsAvailable = true, IsOnReserveCollection = false });
                 Books.Add(new Book { BookId = 6, BookTitle = "La casa viviente", BookAuthor = "Marco Polo", Cantidad = 2, CantidadDisponible = 1, IsAvailable = false, IsOnReserveCollection = true });
                 Books.Add(new Book { BookId = 7, BookTitle = "La casa viviente", BookAuthor = "Marco Polo", Cantidad = 4, CantidadDisponible = 2, IsAvailable = false, IsOnReserveCollection = true });
                 Books.Add(new Book { BookId = 8, BookTitle = "La casa viviente", BookAuthor = "Marco Polo", Cantidad = 2, CantidadDisponible = 1, IsAvailable = false, IsOnReserveCollection = true });
                 Books.Add(new Book { BookId = 9, BookTitle = "La casa viviente", BookAuthor = "Marco Polo", Cantidad = 4, CantidadDisponible = 2, IsAvailable = false, IsOnReserveCollection = true });
-                Books.Add(new Book { BookId = 10, BookTitle = "Una hormiga gigante", BookAuthor = "Daniel Peña", Cantidad = 3, CantidadDisponible = 1, IsAvailable = false, IsOnReserveCollection = true });
+                Books.Add(new Book { BookId = 10, BookTitle = "Una hormiga gigante", BookAuthor = "Daniel Pe�a", Cantidad = 3, CantidadDisponible = 1, IsAvailable = false, IsOnReserveCollection = true });
                 Books.Add(new Book { BookId = 11, BookTitle = "La casa viviente", BookAuthor = "Marco Polo", Cantidad = 2, CantidadDisponible = 1, IsAvailable = true, IsOnReserveCollection = false });
                 Books.Add(new Book { BookId = 12, BookTitle = "La casa viviente", BookAuthor = "Marco Polo", Cantidad = 3, CantidadDisponible = 2, IsAvailable = false, IsOnReserveCollection = true });
                 Books.Add(new Book { BookId = 13, BookTitle = "La casa viviente", BookAuthor = "Marco Polo", Cantidad = 4, CantidadDisponible = 1, IsAvailable = true, IsOnReserveCollection = false });
@@ -63,6 +36,49 @@ namespace SIBACME.Models
                 Books.Add(new Book { BookId = 17, BookTitle = "La casa viviente", BookAuthor = "Marco Polo", Cantidad = 4, CantidadDisponible = 2, IsAvailable = false, IsOnReserveCollection = true });
             }
         }
-       
+
+        [Fact]
+        public void ReservaTestCase1()
+        {
+            //Setup
+            int userId = 3; // User: Dionis
+            int bookId = 16;  // Book:: Is available and is NOT in reserve list
+            //List<Book> books = this.Books; // books: Regular
+            //Assert
+            Assert.True(HomeController.ReservaMethod(Books, bookId, userId));
+        }
+
+        [Fact]
+        public void ReservaTestCase2()
+        {
+            //Setup
+            int userId = 0; // User: null
+            int bookId = 0;  // Book:: null
+            //List<Book> books = this.Books; // Books: regular
+            //Assert
+            Assert.False(HomeController.ReservaMethod(Books, bookId, userId));
+        }
+
+        [Fact]
+        public void ReservaTestCase3()
+        {
+            //Setup
+            int userId = 3; // User: Dionis
+            int bookId = 0;  // Book:: null
+            //List<Book> books = this.Books; // Books: Regular
+            //Assert
+            Assert.False(HomeController.ReservaMethod(Books, bookId, userId));
+        }
+
+        [Fact]
+        public void ReservaTestCase4()
+        {
+            //Setup
+            int userId = 3; // User: Dionis
+            int bookId = 16;  // Book:: Is available and is NOT in reserve list
+            List<Book> books = new List<Book>(); // Books: null
+            //Assert
+            Assert.False(HomeController.ReservaMethod(books, bookId, userId));
+        }
     }
 }

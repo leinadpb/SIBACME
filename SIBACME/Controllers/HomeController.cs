@@ -11,11 +11,9 @@ namespace SIBACME.Controllers
     //Nota: Esta función está implementada con malas prácticas con motivo de enseñanza.
     public class HomeController : Controller
     {
-        private DummyData _data;
-
         public HomeController()
         {
-            _data = new DummyData();
+           
         }
         public IActionResult Index()
         {
@@ -33,9 +31,9 @@ namespace SIBACME.Controllers
         public IActionResult CheckSign(User user)
         {
             //Nota: Esta función está implementada con malas prácticas con motivo de enseñanza.
-            var users = _data.Users;
+            var users = DummyData.Users;
             var loginSuccedd = false;
-            foreach (var usuario in _data.Users)
+            foreach (var usuario in DummyData.Users)
             {
                 if (usuario.UserName == user.UserName && user.Password == usuario.Password)
                 {
@@ -46,7 +44,7 @@ namespace SIBACME.Controllers
             {
                 var categoriaPreferida = user.CategoriaLibrosPreferidos;
                 var model = new List<Book>();
-                foreach (var book in _data.Books)
+                foreach (var book in DummyData.Books)
                 {
                     if (book.Category.Name.ToLower() == categoriaPreferida)
                     {
@@ -70,38 +68,63 @@ namespace SIBACME.Controllers
             return View();
         }
         [HttpPost]
-        public IActionResult Reserva(int BookId, int UserId)
+        public IActionResult Reseva(int BookId, int UserId)
+        {
+            var books = DummyData.Books;
+            if (ReservaMethod(books.ToList(), BookId, UserId))
+            {
+                return View();
+            }
+            else
+            {
+                return NotFound();
+            }
+
+        }
+        public static bool ReservaMethod(List<Book> books, int BookId, int UserId)
         //Nota: Esta función está implementada con malas prácticas con motivo de enseñanza.
         {
-            var books = _data.Books;
+            
             Book book = null;
-            foreach (Book b in books)
+            if(books.Count > 0)
             {
-                if (b.BookId == BookId)
+                foreach (Book b in books)
                 {
-                    book = _data.Books.Where(bk => bk.BookId == BookId).FirstOrDefault();
-                    if (b.IsAvailable)
+                    if (b.BookId == BookId)
                     {
-                        if (!b.IsOnReserveCollection && book != null)
+                        book = DummyData.Books.Where(bk => bk.BookId == BookId).FirstOrDefault();
+                        if (b.IsAvailable)
                         {
-                            User user = _data.Users.Where(u => u.Id == UserId).FirstOrDefault();
+                            if (!b.IsOnReserveCollection && book != null)
+                            {
+                                User user = DummyData.Users.Where(u => u.Id == UserId).FirstOrDefault();
 
-                            book.IsAvailable = false;
+                                book.IsAvailable = false;
 
-                            book.ReservedDate = DateTime.Now;
-                            book.LimitDate = DateTime.Now.AddDays(15);
+                                book.ReservedDate = DateTime.Now;
+                                book.LimitDate = DateTime.Now.AddDays(15);
 
 
-                            user.ReservedBooks.Add(book);
+                                user.ReservedBooks.Add(book);
+
+                                
+                            }
                         }
                     }
                 }
+                if (book == null)
+                {
+                    var error = "Ha ocurrido un error: El libro no existe en nuestro almacén.";
+                    return false;
+                }
+
             }
-            if(book == null)
+            else
             {
-                ViewBag.Error = "Ha ocurrido un error: El libro no existe en nuestro almacén.";
+                return false;
             }
-            return View();
+            
+            return true;
         }
 
         /**
@@ -130,12 +153,12 @@ namespace SIBACME.Controllers
         public IActionResult Devuelta(int BookId, int UserId)
         {
             Book book = null;
-            foreach (Book b in _data.Books)
+            foreach (Book b in DummyData.Books)
             {
                 if (b.BookId == BookId)
                 {
-                    book = _data.Books.Where(bk => bk.BookId == BookId).FirstOrDefault();
-                    User user = _data.Users.Where(u => u.Id == UserId).FirstOrDefault();
+                    book = DummyData.Books.Where(bk => bk.BookId == BookId).FirstOrDefault();
+                    User user = DummyData.Users.Where(u => u.Id == UserId).FirstOrDefault();
                     if (DateTime.Now > book.LimitDate)
                     {
                          var datediff = DateTime.Now.Subtract((DateTime)book.LimitDate);
