@@ -22,8 +22,8 @@ namespace XUnitTestSibacme
                 Books.Add(new Book { BookId = 3, BookTitle = "La casa viviente", BookAuthor = "Marco Polo", Cantidad = 6, CantidadDisponible = 2, IsAvailable = true, IsOnReserveCollection = false });
                 Books.Add(new Book { BookId = 4, BookTitle = "La casa viviente", BookAuthor = "Marco Polo", Cantidad = 4, CantidadDisponible = 1, IsAvailable = true, IsOnReserveCollection = false });
                 Books.Add(new Book { BookId = 5, BookTitle = "La casa viviente", BookAuthor = "Marco Polo", Cantidad = 6, CantidadDisponible = 2, IsAvailable = true, IsOnReserveCollection = false });
-                Books.Add(new Book { BookId = 6, BookTitle = "La casa viviente", BookAuthor = "Marco Polo", Cantidad = 2, CantidadDisponible = 1, IsAvailable = false, IsOnReserveCollection = true });
-                Books.Add(new Book { BookId = 7, BookTitle = "La casa viviente", BookAuthor = "Marco Polo", Cantidad = 4, CantidadDisponible = 2, IsAvailable = false, IsOnReserveCollection = true });
+                Books.Add(new Book { BookId = 6, BookTitle = "La casa viviente", BookAuthor = "Marco Polo", Cantidad = 2, CantidadDisponible = 1, IsAvailable = false, IsOnReserveCollection = true, LimitDate = datetime.now().addDays(-7) });
+                Books.Add(new Book { BookId = 7, BookTitle = "La casa viviente", BookAuthor = "Marco Polo", Cantidad = 4, CantidadDisponible = 2, IsAvailable = false, IsOnReserveCollection = true, LimitData = datetime.now().addDays(-8) });
                 Books.Add(new Book { BookId = 8, BookTitle = "La casa viviente", BookAuthor = "Marco Polo", Cantidad = 2, CantidadDisponible = 1, IsAvailable = false, IsOnReserveCollection = true });
                 Books.Add(new Book { BookId = 9, BookTitle = "La casa viviente", BookAuthor = "Marco Polo", Cantidad = 4, CantidadDisponible = 2, IsAvailable = false, IsOnReserveCollection = true });
                 Books.Add(new Book { BookId = 10, BookTitle = "Una hormiga gigante", BookAuthor = "Daniel Peña", Cantidad = 3, CantidadDisponible = 1, IsAvailable = false, IsOnReserveCollection = true });
@@ -80,5 +80,54 @@ namespace XUnitTestSibacme
             //Assert
             Assert.False(HomeController.ReservaMethod(books, bookId, userId));
         }
+
+        [Fact]
+        public void DevolucionTestCase1()
+        {
+            //Setup
+            int userId = 3; //User: Dionis
+            int bookId = 7; // Book: Is available and is in reserve list 
+            List<Book> books = this.Books; // books: Regular
+            // Days = 8
+            //Assert
+            Assert.True(HomeController.ReservaMethod(books, bookId, userId));
+        }
+
+        [Fact]
+        public void DevolucionTestCase2()
+        {
+            //Setup
+            int userId = 3; //User: Dionis
+            int bookId = 6; //Book: null
+            //List<Book> books = this.Books; // Books: null
+            //Days = 7
+            //Assert
+            Assert.False(HomeController.ReservaMethod(Books, bookId, userId));
+        }
+
+        [Fact]
+        public void DevolucionTestCase3()
+        {
+            //Setup
+            int userId = 0; //User: null
+            int bookId = 0; //Book: null
+            //List<Book> books = this.Books; // Books: 1
+            //Days = 0
+            //Assert
+            Assert.False(HomeController.ReservaMethod(Books, bookId, userId));
+        }
+
+        [Fact]
+        public void DevolucionTestCase4()
+        {
+            //Setup
+            int userId = 0; //User: null
+            int bookId = 0; //Book: null
+            //List<Book> books = this.Books; // Books: regular
+            //Days = 0
+            //Assert
+            Assert.False(HomeController.ReservaMethod(Books, bookId, userId));
+        }
+
     }
 }
