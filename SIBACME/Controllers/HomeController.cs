@@ -159,18 +159,21 @@ namespace SIBACME.Controllers
                 {
                     book = DummyData.Books.Where(bk => bk.BookId == BookId).FirstOrDefault();
                     User user = DummyData.Users.Where(u => u.Id == UserId).FirstOrDefault();
-                    if (DateTime.Now > book.LimitDate)
+                    if(!book.IsAvailable)
                     {
-                         var datediff = DateTime.Now.Subtract((DateTime)book.LimitDate);
-                         int days = datediff.Days;
-                       if(days >= 8)
+                        if (DateTime.Now > book.LimitDate)
                         {
-                            user.ListaNegra = true;
+                             var datediff = DateTime.Now.Subtract((DateTime)book.LimitDate);
+                             int days = datediff.Days;
+                           if(days >= 8)
+                            {
+                                user.ListaNegra = true;
+                            }
+                           user.Multa = days * 20;
                         }
-                       user.Multa = days * 20;
-                    }
-                    user.ReservedBooks.Remove(book);
-                    b.IsAvailable = true;
+                        user.ReservedBooks.Remove(book);
+                        b.IsAvailable = true;
+                     }   
                 }
             }
             if(book == null)
